@@ -13,6 +13,9 @@ const getProducts = async () => {
             price: true,
             brandId: true,
             brand: true
+        },
+        where:{
+            deletedAt: null
         }
     });
 

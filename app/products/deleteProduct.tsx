@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 type Product = {
     id: number;
@@ -16,7 +17,14 @@ const DeleteProduct = ({product}: {product: Product[]}) => {
     const router = useRouter();
 
     const handleDelete = async (productId: number) => {
-        await axios.delete(`/api/products/${productId}`)
+        await axios.put(`/api/products/${productId}/delete`).then(function(response) {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Product has been deleted',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        })
         router.refresh();
         setIsOpen(false);
     }
